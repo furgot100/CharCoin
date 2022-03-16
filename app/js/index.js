@@ -18,7 +18,7 @@ const App = {
         try {
             // Get contract instance.
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = carArtifact.networks[networkId];
+            const deployedNetwork = charArtifact.networks[networkId];
             this.charContract = new web3.eth.Contract(
                 charArtifact.abi,
                 deployedNetwork.address,
@@ -32,8 +32,8 @@ const App = {
         }
     },
 
-    generateRandomCarData: async function (to) {
-        // Car specs
+    generateRandomCharData: async function (to) {
+        // Char specs
         var charStats = {
             health: `${Math.round(Math.random() * 1000)} HP`,
             mp: `${Math.round(Math.random() * 400) + 30} MP`,
@@ -58,14 +58,14 @@ const App = {
             data: JSON.stringify(metadata),
         };
 
-        // Tell the user we're generating the car
+        // Tell the user we're generating the char
         this.setStatus("Generating a character... please wait, it can take a while!");
 
         // Add the metadata to IPFS first, because our contract requires a
         // valid URL for the metadata address.
         const result = await fleek.upload(uploadMetadata);
 
-        // Once the file is added, then we can send a car
+        // Once the file is added, then we can send a char
         this.awardItem(to, result.publicUrl, charStats);
     },
 
@@ -73,10 +73,10 @@ const App = {
         // Fetch the awardItem method from our contract.
         const { awardItem } = this.charContract.methods;
 
-        // Award the car
+        // Award the char
         await awardItem(to, metadataURL).send({ from: this.account });
 
-        // Set the status and show the car generated.
+        // Set the status and show the char generated.
         this.setStatus(`Character generated! Here are the stats for your character :
         <br/>
         <ul>
@@ -120,6 +120,6 @@ $(document).ready(function () {
         // Capture form data and create metadata from the submission.
         const to = $("#to").val();
 
-        window.App.generateRandomCarData(to);
+        window.App.generateRandomCharData(to);
     });
 });
