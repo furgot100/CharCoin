@@ -80,9 +80,9 @@ const App = {
         this.setStatus(`Character generated! Here are the stats for your character :
         <br/>
         <ul>
-            <li>Health: ${metadata.Health}</li>
-            <li>MP: ${metadata.MP}</li>
-            <li>Level: ${metadata.Level}</li>
+            <li>Health: ${metadata.health}</li>
+            <li>MP: ${metadata.mp}</li>
+            <li>Level: ${metadata.level}</li>
         </ul>
         View the metadata <a href="${metadataURL}" target="_blank">here</a>.
         `);
